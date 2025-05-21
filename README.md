@@ -49,12 +49,6 @@ newNERmodel/
     └── vocab.txt                      # Vocabulary file
 ```
 
-You can use this model by running predict_bertcrf.py.
-
-```bash
-python3 predict_bertcrf.py
-```
-
 This repository uses **Git Large File Storage (LFS)** to manage the model file `pytorch_model.bin`.  
 If you download the repository as a ZIP file, the model file will not be included.  
 Please follow the steps below to properly clone the repository and download the LFS-managed files.
@@ -82,6 +76,12 @@ cd newNERmodel
 git lfs pull
 ```
 Note: git lfs pull is required to download the actual model file (`pytorch_model.bin`).
+
+You can use this model by running predict_bertcrf.py.
+
+```bash
+python3 predict_bertcrf.py
+```
 
 ### Input Example
 
