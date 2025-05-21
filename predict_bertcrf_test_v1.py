@@ -16,18 +16,9 @@ from collections import Counter
 from transformers import AutoTokenizer
 from datasets import Dataset
 from spacy_alignments.tokenizations import get_alignments
-from seqeval.metrics import classification_report
 from transformers import PreTrainedTokenizer
 from transformers.tokenization_utils_base import BatchEncoding
 from sklearn.model_selection import train_test_split
-
-from seqeval.metrics import f1_score, precision_score, recall_score
-
-from conlleval import count_chunks
-from conlleval import evaluate
-from conlleval import calc_metrics
-from conlleval import get_result
-from seqeval.metrics import performance_measure
 
 # 必要なライブラリを持ってくる
 from transformers import (
@@ -44,18 +35,9 @@ from seqeval.metrics.sequence_labeling import get_entities
 from transformers import PreTrainedModel
 from glob import glob
 
-from seqeval.metrics import f1_score, precision_score, recall_score
-
-from conlleval import count_chunks
-from conlleval import evaluate
-from conlleval import calc_metrics
-from conlleval import get_result
-
-# from torchcrf import CRF
 from TorchCRF import CRF
 from transformers import BertForTokenClassification, PretrainedConfig, AutoTokenizer
 from transformers.modeling_outputs import TokenClassifierOutput
-
 
 # 自作のutisから必要な関数を取ってくる
 from utils import (
@@ -99,13 +81,6 @@ class BertWithCrfForTokenClassification(BertForTokenClassification):
             module.transitions.data = t
             module.end_transitions.data = et
 
-    #def forward(
-        #self,
-        #input_ids: torch.Tensor,
-        #attention_mask: torch.Tensor | None = None,
-        #token_type_ids: torch.Tensor | None = None,
-        #labels: torch.Tensor | None = None,
-    #) -> TokenClassifierOutput:
     def forward(
         self,
         input_ids: torch.Tensor,
@@ -161,7 +136,7 @@ if __name__ == '__main__':
         }
     
     # text読み込み（ここを変更 .txt前部分を入力）
-    txt_name = r"newNERmodel/data/text"
+    txt_name = r"data/text"
 
     with open(f"{txt_name}.txt", encoding="utf-8") as f:
             articles_raw = f.read()
@@ -199,7 +174,7 @@ if __name__ == '__main__':
         collate_fn=data_collator)
     
     # モデル読み込み (自動判定でcpuモードに)
-    best_model = BertWithCrfForTokenClassification.from_pretrained('newNERmodel/checkpoint-150')
+    best_model = BertWithCrfForTokenClassification.from_pretrained('checkpoint-150')
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     best_model = best_model.to(device)
     # 固有表現ラベルを予測する

@@ -16,18 +16,9 @@ from collections import Counter
 from transformers import AutoTokenizer
 from datasets import Dataset
 from spacy_alignments.tokenizations import get_alignments
-from seqeval.metrics import classification_report
 from transformers import PreTrainedTokenizer
 from transformers.tokenization_utils_base import BatchEncoding
 from sklearn.model_selection import train_test_split
-
-from seqeval.metrics import f1_score, precision_score, recall_score
-
-from conlleval import count_chunks
-from conlleval import evaluate
-from conlleval import calc_metrics
-from conlleval import get_result
-from seqeval.metrics import performance_measure
 
 # 必要なライブラリを持ってくる
 from transformers import (
@@ -44,17 +35,9 @@ from seqeval.metrics.sequence_labeling import get_entities
 from transformers import PreTrainedModel
 from glob import glob
 
-from seqeval.metrics import f1_score, precision_score, recall_score
-
-from conlleval import count_chunks
-from conlleval import evaluate
-from conlleval import calc_metrics
-from conlleval import get_result
-
-from torchcrf import CRF
+from TorchCRF import CRF
 from transformers import BertForTokenClassification, PretrainedConfig, AutoTokenizer
 from transformers.modeling_outputs import TokenClassifierOutput
-
 
 # 自作のutisから必要な関数を取ってくる
 from utils import (
@@ -78,6 +61,8 @@ from utils import (
 )
 
 #%%
+from typing import Optional
+
 class BertWithCrfForTokenClassification(BertForTokenClassification):
     """BertForTokenClassificationにCRF層を加えたクラス"""
 
@@ -104,8 +89,6 @@ class BertWithCrfForTokenClassification(BertForTokenClassification):
         labels: torch.Tensor | None = None,
     ) -> TokenClassifierOutput:
         """モデルの前向き計算を定義"""
-        # BertForTokenClassificationのforwardメソッドを適用して
-        # 予測スコアを取得する
         output = super().forward(
             input_ids=input_ids,
             attention_mask=attention_mask,
@@ -152,7 +135,7 @@ if __name__ == '__main__':
         }
     
     # text読み込み（ここを変更 .txt前部分を入力）
-    txt_name = r"newNERmodel/data/text"
+    txt_name = r"data/text"
 
     with open(f"{txt_name}.txt", encoding="utf-8") as f:
             articles_raw = f.read()
@@ -190,7 +173,7 @@ if __name__ == '__main__':
         collate_fn=data_collator)
     
     # モデル読み込み
-    best_model = BertWithCrfForTokenClassification.from_pretrained('newNERmodel/checkpoint-150')
+    best_model = BertWithCrfForTokenClassification.from_pretrained('checkpoint-150')
 
     best_model = best_model.to("cuda:0")
     # 固有表現ラベルを予測する
