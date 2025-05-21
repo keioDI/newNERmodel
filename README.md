@@ -51,9 +51,37 @@ newNERmodel/
 
 You can use this model by running predict_bertcrf.py.
 
-```
+```bash
 python3 predict_bertcrf.py
 ```
+
+This repository uses **Git Large File Storage (LFS)** to manage the model file `pytorch_model.bin`.  
+If you download the repository as a ZIP file, the model file will not be included.  
+Please follow the steps below to properly clone the repository and download the LFS-managed files.
+
+### 1. Install Git LFS
+
+#### macOS
+
+```bash
+brew install git-lfs
+git lfs install
+```
+
+#### Windows
+
+```
+Download and run the Git LFS installer from the official site:
+https://git-lfs.github.com/
+```
+### 2. Clone the repository and pull LFS files
+
+```bash
+git clone https://github.com/keioDI/newNERmodel.git
+cd newNERmodel
+git lfs pull
+```
+Note: git lfs pull is required to download the actual model file (`pytorch_model.bin`).
 
 ### Input Example
 
