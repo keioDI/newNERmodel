@@ -12,18 +12,11 @@ from collections import Counter
 from datasets import Dataset
 from spacy_alignments.tokenizations import get_alignments
 from sklearn.model_selection import train_test_split
-# 評価用
-from seqeval.metrics import f1_score, precision_score, recall_score
-from seqeval.metrics import classification_report
-from seqeval.metrics import performance_measure
-from conlleval import count_chunks
-from conlleval import evaluate
-from conlleval import calc_metrics
-from conlleval import get_result
+
 #モデル用
 from torch.utils.data import DataLoader
 from seqeval.metrics.sequence_labeling import get_entities
-#from torchcrf import CRF
+
 from TorchCRF import CRF
 from transformers import Trainer, TrainingArguments
 from transformers.trainer_utils import set_seed
