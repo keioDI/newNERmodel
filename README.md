@@ -7,7 +7,7 @@ The model is designed to extract symptoms and drug names from the free-text “S
 
 ## Key Features
 
-- Extracts symptoms and drug names from Japanese　pharmaceutical care records
+- Extracts symptoms and drug names from Japanese pharmaceutical care records
 - Capable of extracting colloquial expressions from patient “Subjective” section
 - Trained on the Pharmacist Complaint Annotation (PCA) dataset
 - Outputs entity tags in XML-style format (e.g., `<d>`, `<m-key>`)
@@ -33,6 +33,7 @@ The model is designed to extract symptoms and drug names from the free-text “S
 ## How to use
 
 Download the following all files and put into the same folder.
+
 (Note) The `test/` directory contains backup and maintenance versions of prediction scripts.  
 These scripts are not used in the actual prediction pipeline.
 
