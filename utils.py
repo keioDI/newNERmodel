@@ -17,7 +17,7 @@ from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader
 from seqeval.metrics.sequence_labeling import get_entities
 
-from TorchCRF import CRF
+from torchcrf import CRF
 from transformers import Trainer, TrainingArguments
 from transformers.trainer_utils import set_seed
 from transformers import (

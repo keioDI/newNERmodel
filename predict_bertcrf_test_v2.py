@@ -35,7 +35,7 @@ from seqeval.metrics.sequence_labeling import get_entities
 from transformers import PreTrainedModel
 from glob import glob
 
-from TorchCRF import CRF
+from torchcrf import CRF
 from transformers import BertForTokenClassification, PretrainedConfig, AutoTokenizer
 from transformers.modeling_outputs import TokenClassifierOutput
 
